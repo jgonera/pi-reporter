@@ -9,7 +9,7 @@ class Runner:
     FRAME_FILE = "frame.jpg"
     STREAM_COMMAND = "avconv \
         -f video4linux2 -i /dev/video0 -s 320x240 -r 30 \
-        -f mpeg1video -r 30 -b 400k %s"
+        -f mpeg1video -r 30 -b 100k %s"
 
     def __init__(self, url):
         self.url = url
