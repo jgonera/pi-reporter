@@ -5,11 +5,12 @@ from time import sleep
 from subprocess import Popen
 
 class Runner:
-    POLL_INTERVAL = 5
+    POLL_INTERVAL = 60
     FRAME_FILE = "frame.jpg"
-    STREAM_COMMAND = "avconv \
-        -f video4linux2 -i /dev/video0 -s 320x240 -r 30 \
-        -f mpeg1video -r 30 -b 100k %s"
+    STREAM_COMMAND = "ffmpeg \
+        -f video4linux2 -r 30 -i /dev/video0 -s 320x240 \
+        -f mpeg1video -r 30 -b:v 100k %s \
+        -vf fps=1/%i -f image2 -update 1 -y %s"
 
     def __init__(self, url):
         self.url = url
@@ -23,7 +24,7 @@ class Runner:
             sleep(self.POLL_INTERVAL)
 
     def start_stream(self):
-        cmd = self.STREAM_COMMAND % (self.url)
+        cmd = self.STREAM_COMMAND % (self.url, self.POLL_INTERVAL, self.FRAME_FILE)
         print("Starting stream...")
         print("Command: %s" % cmd)
         self.stream_process = Popen(cmd, shell=True)
