@@ -16,7 +16,7 @@ class Runner:
 
     def run():
         while True:
-            if !self.is_streaming():
+            if not self.is_streaming():
                 self.start_stream()
 
             sleep(POLL_INTERVAL)
@@ -28,7 +28,7 @@ class Runner:
         self.stream_process = Popen(cmd, shell=True)
 
     def is_streaming():
-        return self.stream_process != None and !self.stream_process.poll()
+        return self.stream_process != None and not self.stream_process.poll()
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
