@@ -14,20 +14,20 @@ class Runner:
         self.url = url
         self.stream_process = None
 
-    def run:
+    def run():
         while True:
             if !self.is_streaming():
                 self.start_stream()
 
             sleep(POLL_INTERVAL)
 
-    def start_stream:
+    def start_stream():
         cmd = STREAM_COMMAND % (self.url, POLL_INTERVAL, FRAME_FILE)
         print("Starting stream...")
         print("Command: %s" % cmd)
         self.stream_process = Popen(cmd, shell=True)
 
-    def is_streaming:
+    def is_streaming():
         return self.stream_process != None and !self.stream_process.poll()
 
 if __name__ == "__main__":
